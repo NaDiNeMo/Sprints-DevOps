@@ -1,0 +1,28 @@
+
+# create a user with root privilages # 
+
+$ adduser username 
+$ usermod -aG wheel username 
+$ su admin
+$ sudo vim /etc/ssh/sshd_config # uncomment PermitRootLogin and set value to no #
+$ sudo service sshd restart
+=============
+
+#!/usr/bin/bash
+
+read -p "Enter Required Port: (Choose between 1024-65535) " sshportchange
+if (( ("$sshportchange" > 1024) && ("$sshportchange" < 65535) )); then
+    echo "Port $sshportchange" >> /etc/ssh/sshd_config
+    echo "SSH port has been changed to: $sshportchange."
+ else
+    echo "Chosen Port is out of range!"
+    exit 1
+    fi
+=========  
+# disable firewall to new changes #
+
+$ sudo firewall-cmd --add-port=$sshportchange /tcp --permanent  # $sshportchange -> required port #
+$ firewall -cmd --reload
+
+=============
+systemctl restart sshd
