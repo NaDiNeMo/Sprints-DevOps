@@ -1,0 +1,9 @@
+FROM python: 3.8
+LABEL Maintainer="n.abdelaleem@nu.edu.eg"
+WORKDIR /use/app/src
+COPY Sprints.py./
+COPY test-sprints.py./
+CMD ["python", "./Sprints.py"]
+CMD ["python", "./test-sprints.py./"]
+CMD ["python", "./sshd.txt./"]
+docker image build -t Sprints-DevOps.
